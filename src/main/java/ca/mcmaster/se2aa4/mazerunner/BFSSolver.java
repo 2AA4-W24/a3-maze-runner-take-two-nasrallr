@@ -10,6 +10,7 @@ public class BFSSolver implements MazeSolver {
 
     @Override
     public Path solve(Maze inputMaze) {
+
         this.maze = inputMaze;
         queue.add(new Path()); 
 
@@ -24,7 +25,7 @@ public class BFSSolver implements MazeSolver {
             enqueue(currentPath, 'R', 'F');
             enqueue(currentPath, 'L', 'F');
         }
-
+        
         return new Path(); 
     }
 
@@ -62,7 +63,17 @@ public class BFSSolver implements MazeSolver {
         return pos;
     }
 
-    private boolean positionIsValid(Position pos) {
-        return pos != null && pos.x() >= 0 && pos.x() < maze.getSizeX() && pos.y() >= 0 && pos.y() < maze.getSizeY() && !maze.isWall(pos);
+    private boolean positionIsValid(Position position) {
+        return position != null && position.x() >= 0 && position.x() < maze.getSizeX() 
+        && position.y() >= 0 && position.y() < maze.getSizeY() && !maze.isWall(position);
     }
+
+    @Override
+    public long executionTime(Maze maze) {
+        long start = System.currentTimeMillis();
+        solve(maze);
+        long end = System.currentTimeMillis();
+        return end - start;
+    }
+
 }

@@ -11,6 +11,7 @@ public class TremauxSolver implements MazeSolver {
     private static final Logger logger = LogManager.getLogger();
     private int[][] marks;
     private Maze maze;
+    
 
     @Override
     public Path solve(Maze maze) {
@@ -20,6 +21,7 @@ public class TremauxSolver implements MazeSolver {
         markEntrances();
         logger.debug("Tracing path...");
         return tracePath();
+
     }
 
     /**
@@ -180,5 +182,13 @@ public class TremauxSolver implements MazeSolver {
      */
     private boolean isInBounds(Position position, int sizeX, int sizeY) {
         return position.x() >= 0 && position.x() < sizeX && position.y() >= 0 && position.y() < sizeY;
+    }
+
+    @Override
+    public long executionTime(Maze maze) {
+        long start = System.currentTimeMillis();
+        solve(maze);
+        long end = System.currentTimeMillis();
+        return end - start;
     }
 }

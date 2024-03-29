@@ -8,4 +8,5 @@ public interface MazeSolver {
      * @return Path that solves the provided maze
      */
     Path solve(Maze maze);
+    long executionTime(Maze maze);
 }
