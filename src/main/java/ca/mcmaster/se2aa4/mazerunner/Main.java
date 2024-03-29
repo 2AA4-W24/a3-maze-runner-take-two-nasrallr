@@ -27,9 +27,13 @@ public class Main {
                     System.out.println("incorrect path");
                 }
             } else {
+                SpeedUpCalculator suc = new SpeedUpCalculator();
                 String method = cmd.getOptionValue("method", "BFS");
                 Path path = solveMaze(method, maze);
                 System.out.println(path.getFactorizedForm());
+                String baseline = cmd.getOptionValue("baseline", "tremaux");
+                String speedUp = suc.calculateSpeedUp(maze, path, solveMaze(baseline, maze));
+                System.out.println(method + " algorithm allows one to escape the maze " + speedUp + " times faster than the " + baseline + " algorithm");
             }
         } catch (Exception e) {
             System.err.println("MazeSolver failed.  Reason: " + e.getMessage());
@@ -86,6 +90,7 @@ public class Main {
 
         options.addOption(new Option("p", true, "Path to be verified in maze"));
         options.addOption(new Option("method", true, "Specify which path computation algorithm will be used"));
+        options.addOption(new Option("baseline", true, "Specify which path computation algorithm will be compared to chosen computation algorithm to find maze path"));
 
         return options;
     }
