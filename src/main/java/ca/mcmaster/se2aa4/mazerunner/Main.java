@@ -33,6 +33,7 @@ public class Main {
                 System.out.println(path.getFactorizedForm());
                 String baseline = cmd.getOptionValue("baseline", "tremaux");
                 Path baselinePath = solveMaze(baseline, maze);
+                System.out.println(baselinePath.getFactorizedForm());
                 String speedUp = suc.calculateSpeedUp(maze, path, baselinePath);
                 System.out.println(method + " algorithm allows one to escape the maze " + speedUp + " times faster than the " + baseline + " algorithm");
             }
@@ -74,8 +75,10 @@ public class Main {
         }
 
         logger.info("Computing path");
+        Path solution = solver.solve(maze);
         System.out.println(method + " algorithm takes " + solver.executionTime(maze) + " milliseconds to solve the maze");
-        return solver.solve(maze);
+        return solution;
+
     }
 
     /**

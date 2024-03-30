@@ -1,54 +1,70 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 public class BFSSolver implements MazeSolver {
 
-    private Queue<Path> queue = new LinkedList<>();
+    private Queue<Node> queue = new LinkedList<>();
+    private Set<Position> visited = new HashSet<>();
     private Maze maze;
 
     @Override
     public Path solve(Maze inputMaze) {
-
         this.maze = inputMaze;
-        queue.add(new Path()); 
-
+        Direction dir = Direction.RIGHT;
+        Position pos = maze.getStart();
+        queue.add(new Node(pos, dir, new Path()));
+        visited.add(maze.getStart());
+    
         while (!queue.isEmpty()) {
-            Path currentPath = queue.poll();
-            Position currentPosition = updatePosition(maze.getStart(), currentPath);
+            Node currentNode = queue.poll();
+            Path currentPath = currentNode.path;
+            Position currentPosition = currentNode.position;
             if (currentPosition.equals(maze.getEnd())) {
                 return currentPath;
+            } else {
+                enqueue(currentNode, 'F');
+                enqueue(currentNode, 'R', 'F');
+                enqueue(currentNode, 'L', 'F');
             }
-
-            enqueue(currentPath, 'F');
-            enqueue(currentPath, 'R', 'F');
-            enqueue(currentPath, 'L', 'F');
+    
+            
         }
-        
         return new Path(); 
     }
+    
 
-    private void enqueue(Path currentPath, Character... moves) {
-        Path potentialPath = new Path(currentPath.getCanonicalForm()); 
+    private void enqueue(Node currentNode, Character... moves) {
+        Path potentialPath = new Path();
         for (Character move : moves) {
             potentialPath.addStep(move);
         }
-        Position nextPosition = updatePosition(maze.getStart(), potentialPath);
-        if (positionIsValid(nextPosition)) {
-            queue.add(potentialPath);
+        Node updatedNode = updateNode(currentNode, potentialPath);
+        if (updatedNode != null) {
+            Position nextPosition = updatedNode.position;
+            if (positionIsValid(nextPosition) && visited.add(nextPosition)) {
+                queue.add(updatedNode);
+            }
         }
     }
 
-    private Position updatePosition(Position start, Path path) {
-        Position pos = new Position(start.x(), start.y());
-        Direction dir = Direction.RIGHT;
 
+    private Node updateNode(Node currentNode, Path addedPath) {
+        Position position = new Position(currentNode.position.x(), currentNode.position.y());
+        Direction dir = currentNode.direction;
+        Path nodePath = new Path(currentNode.path.getCanonicalForm()); // Create a copy of the current node's path
+        Path path = addedPath;
+        
+    
         for (char move : path.getPathSteps()) {
+            nodePath.addStep(move); // Update the copy of the path with the move
             switch (move) {
                 case 'F':
-                    pos = pos.move(dir);
-                    if (!positionIsValid(pos)) {
+                    position = position.move(dir);
+                    if (!positionIsValid(position)) {
                         return null;
                     }
                     break;
@@ -60,12 +76,14 @@ public class BFSSolver implements MazeSolver {
                     break;
             }
         }
-        return pos;
+    
+        return new Node(position, dir, nodePath); // Use the copy of the path in the new node
     }
+    
 
     private boolean positionIsValid(Position position) {
-        return position != null && position.x() >= 0 && position.x() < maze.getSizeX() 
-        && position.y() >= 0 && position.y() < maze.getSizeY() && !maze.isWall(position);
+        return position != null && position.x() >= 0 && position.x() < maze.getSizeX()
+                && position.y() >= 0 && position.y() < maze.getSizeY() && !maze.isWall(position);
     }
 
     @Override
@@ -76,4 +94,19 @@ public class BFSSolver implements MazeSolver {
         return end - start;
     }
 
+    public Queue<Node> getQueue() {
+        return queue;
+    }
+
+    private static class Node {
+        Position position;
+        Direction direction;
+        Path path;
+
+        Node(Position pos, Direction dir, Path path) {
+            this.position = pos;
+            this.direction = dir;
+            this.path = path;
+        }
+    }
 }
