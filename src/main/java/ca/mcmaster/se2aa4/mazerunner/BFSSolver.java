@@ -8,7 +8,7 @@ import java.util.Set;
 public class BFSSolver implements MazeSolver {
 
     private Queue<Node> queue = new LinkedList<>();
-    private Set<Position> visited = new HashSet<>();
+    private Set<Position> visitedNodes = new HashSet<>();
     private Maze maze;
 
     @Override
@@ -17,7 +17,7 @@ public class BFSSolver implements MazeSolver {
         Direction dir = Direction.RIGHT;
         Position pos = maze.getStart();
         queue.add(new Node(pos, dir, new Path()));
-        visited.add(maze.getStart());
+        visitedNodes.add(maze.getStart());
     
         while (!queue.isEmpty()) {
             Node currentNode = queue.poll();
@@ -45,7 +45,7 @@ public class BFSSolver implements MazeSolver {
         Node updatedNode = updateNode(currentNode, potentialPath);
         if (updatedNode != null) {
             Position nextPosition = updatedNode.position;
-            if (positionIsValid(nextPosition) && visited.add(nextPosition)) {
+            if (positionIsValid(nextPosition) && visitedNodes.add(nextPosition)) {
                 queue.add(updatedNode);
             }
         }
@@ -98,15 +98,5 @@ public class BFSSolver implements MazeSolver {
         return queue;
     }
 
-    private static class Node {
-        Position position;
-        Direction direction;
-        Path path;
-
-        Node(Position pos, Direction dir, Path path) {
-            this.position = pos;
-            this.direction = dir;
-            this.path = path;
-        }
-    }
+    
 }
