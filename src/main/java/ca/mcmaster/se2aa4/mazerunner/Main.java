@@ -17,7 +17,7 @@ public class Main {
             cmd = parser.parse(getParserOptions(), args);
             String filePath = cmd.getOptionValue('i');
             Maze maze = new Maze(filePath);
-
+            System.out.println("Time spent loading the maze from the file: " + maze.executionTime() + " milliseconds" );
             if (cmd.getOptionValue("p") != null) {
                 logger.info("Validating path");
                 Path path = new Path(cmd.getOptionValue("p"));
@@ -33,7 +33,7 @@ public class Main {
                 System.out.println(path.getFactorizedForm());
                 String baseline = cmd.getOptionValue("baseline", "tremaux");
                 Path baselinePath = solveMaze(baseline, maze);
-                System.out.println(baselinePath.getFactorizedForm());
+                //System.out.println(baselinePath.getFactorizedForm());
                 String speedUp = suc.calculateSpeedUp(maze, path, baselinePath);
                 System.out.println(method + " algorithm allows one to escape the maze " + speedUp + " times faster than the " + baseline + " algorithm");
             }

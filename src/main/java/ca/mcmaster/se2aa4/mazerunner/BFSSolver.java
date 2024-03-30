@@ -55,12 +55,12 @@ public class BFSSolver implements MazeSolver {
     private Node updateNode(Node currentNode, Path addedPath) {
         Position position = new Position(currentNode.position.x(), currentNode.position.y());
         Direction dir = currentNode.direction;
-        Path nodePath = new Path(currentNode.path.getCanonicalForm()); // Create a copy of the current node's path
+        Path nodePath = new Path(currentNode.path.getCanonicalForm()); 
         Path path = addedPath;
         
     
         for (char move : path.getPathSteps()) {
-            nodePath.addStep(move); // Update the copy of the path with the move
+            nodePath.addStep(move); 
             switch (move) {
                 case 'F':
                     position = position.move(dir);
@@ -77,7 +77,7 @@ public class BFSSolver implements MazeSolver {
             }
         }
     
-        return new Node(position, dir, nodePath); // Use the copy of the path in the new node
+        return new Node(position, dir, nodePath); 
     }
     
 
@@ -87,11 +87,12 @@ public class BFSSolver implements MazeSolver {
     }
 
     @Override
-    public long executionTime(Maze maze) {
+    public String executionTime(Maze maze) {
         long start = System.currentTimeMillis();
         solve(maze);
         long end = System.currentTimeMillis();
-        return end - start;
+        double timeInMillis = end - start; // Time in milliseconds
+        return String.format("%.2f", timeInMillis);
     }
 
     public Queue<Node> getQueue() {

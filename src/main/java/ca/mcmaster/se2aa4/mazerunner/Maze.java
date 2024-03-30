@@ -15,6 +15,7 @@ public class Maze {
 
     private final Position start;
     private final Position end;
+    private long executionTime;
 
     /**
      * Initialize a Maze from a file path.
@@ -23,6 +24,7 @@ public class Maze {
      * @throws Exception If maze cannot be read, or maze has no start or end
      */
     public Maze(String filePath) throws Exception {
+        long startTime = System.currentTimeMillis();
         logger.debug("Reading the maze from file " + filePath);
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
@@ -39,6 +41,7 @@ public class Maze {
         }
         start = findStart();
         end = findEnd();
+        executionTime = System.currentTimeMillis() - startTime;
     }
 
     /**
@@ -161,4 +164,13 @@ public class Maze {
 
         return pos.equals(endPos);
     }
+
+    
+    
+    public String executionTime() {
+        double time = executionTime; 
+        return String.format("%.2f", time);
+    }
+
+
 }

@@ -185,10 +185,11 @@ public class TremauxSolver implements MazeSolver {
     }
 
     @Override
-    public long executionTime(Maze maze) {
+    public String executionTime(Maze maze) {
         long start = System.currentTimeMillis();
         solve(maze);
         long end = System.currentTimeMillis();
-        return end - start;
+        double timeInMillis = end - start; // Time in milliseconds
+        return String.format("%.2f", timeInMillis);
     }
 }
