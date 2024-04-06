@@ -73,13 +73,16 @@ public class Main {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
             }
         }
-
+    
         logger.info("Computing path");
+        long startTime = System.currentTimeMillis(); 
         Path solution = solver.solve(maze);
-        System.out.println(method + " algorithm takes " + solver.executionTime(maze) + " milliseconds to solve the maze");
+        long endTime = System.currentTimeMillis(); 
+        double timeInMillis = (endTime - startTime); 
+        System.out.println(method + " algorithm takes " + String.format("%.2f", timeInMillis) + " milliseconds to solve the maze");
         return solution;
-
     }
+    
 
     /**
      * Get options for CLI parser.

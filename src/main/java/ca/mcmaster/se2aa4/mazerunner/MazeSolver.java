@@ -8,5 +8,4 @@ public interface MazeSolver {
      * @return Path that solves the provided maze
      */
     Path solve(Maze maze);
-    String executionTime(Maze maze);
 }

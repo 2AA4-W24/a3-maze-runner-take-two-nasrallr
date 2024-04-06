@@ -183,13 +183,4 @@ public class TremauxSolver implements MazeSolver {
     private boolean isInBounds(Position position, int sizeX, int sizeY) {
         return position.x() >= 0 && position.x() < sizeX && position.y() >= 0 && position.y() < sizeY;
     }
-
-    @Override
-    public String executionTime(Maze maze) {
-        long start = System.currentTimeMillis();
-        solve(maze);
-        long end = System.currentTimeMillis();
-        double timeInMillis = end - start; // Time in milliseconds
-        return String.format("%.2f", timeInMillis);
-    }
 }

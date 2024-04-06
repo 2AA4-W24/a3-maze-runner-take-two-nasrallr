@@ -43,13 +43,4 @@ public class RightHandSolver implements MazeSolver {
 
         return path;
     }
-
-    @Override
-    public String executionTime(Maze maze) {
-        long start = System.currentTimeMillis();
-        solve(maze);
-        long end = System.currentTimeMillis();
-        double timeInMillis = end - start; // Time in milliseconds
-        return String.format("%.2f", timeInMillis);
-    }
 }
