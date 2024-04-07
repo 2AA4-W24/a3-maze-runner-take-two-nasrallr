@@ -27,11 +27,11 @@ public class MazeSolverConcreteVisitor implements MazeSolverVisitor{
     }
 
     @Override
-    public void visit(BFSSolver bfsSolver) {
+    public void visit(GraphTraverserAdapter algorithm) {
         long startTime = System.currentTimeMillis(); 
-        bfsSolver.solve(maze);
+        algorithm.solve(maze);
         long endTime = System.currentTimeMillis(); 
         double timeInMillis = (endTime - startTime); 
-        System.out.println("BFS algorithm takes " + String.format("%.2f", timeInMillis) + " milliseconds to solve the maze");
+        System.out.println("Graph traversal algorithm takes " + String.format("%.2f", timeInMillis) + " milliseconds to solve the maze");
     }
 }

@@ -14,6 +14,7 @@ public class GraphBuilder {
     private ArrayList<Node> adjacencyList = new ArrayList<>();
     private Node startNode;
     private Node endNode;
+    
 
     public void buildGraph(Maze inputMaze) {
         this.maze = inputMaze;

@@ -6,16 +6,18 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Queue;
 
-public class BFSSolver implements MazeSolver {
-
-    
+public class BFSSolver implements GraphTraverser {
+    private Node endN;
+    private Node startN;
 
     @Override
-    public Path solve(Maze maze) {
+    public Map<Node, Node> traverse(Maze maze) {
         GraphBuilder graphBuilder = new GraphBuilder();
         graphBuilder.buildGraph(maze);
         Node startNode = graphBuilder.getStartNode();
         Node endNode = graphBuilder.getEndNode();
+        startN = startNode;
+        endN = endNode;
 
         Queue<Node> queue = new LinkedList<>();
         Map<Node, Node> shortestPath = new HashMap<>();
@@ -27,7 +29,7 @@ public class BFSSolver implements MazeSolver {
             Node current = queue.poll();
 
             if (current.equals(endNode)) {
-                return nodeToPath(shortestPath, endNode);
+                return shortestPath;
             }
 
             for (Edge edge : current.getEdges()) {
@@ -38,37 +40,17 @@ public class BFSSolver implements MazeSolver {
                 }
             }
         }
-        return new Path();
+        return shortestPath;
     }
 
-    public Path nodeToPath(Map<Node, Node> shortestPathInput, Node endN) {
-        ArrayList<Node> shortestPath = new ArrayList<>();
-        Node endNode = endN;
-        while (endNode != null) {
-            shortestPath.add(0, endNode);
-            endNode = shortestPathInput.get(endNode);
-        }
-
-        Path path = new Path();
-        for (int i = 0; i < shortestPath.size() - 1; i++) {
-            Node currentNode = shortestPath.get(i);
-            Node nextNode = shortestPath.get(i + 1);
-
-            for (Edge edge : currentNode.getEdges()) {
-                if (edge.getEndNode().equals(nextNode)) {
-                    for (char c : edge.getPath().getPathSteps()) {
-                        path.addStep(c);
-                    }
-                    break;
-                }
-            }
-        }
-
-        return path;
+    @Override
+    public Node getEndNode() {
+        return endN;
     }
 
-    public void accept(MazeSolverVisitor visitor) {
-        visitor.visit(this);
+    @Override
+    public Node getStartNode() {
+        return startN;
     }
     
 }

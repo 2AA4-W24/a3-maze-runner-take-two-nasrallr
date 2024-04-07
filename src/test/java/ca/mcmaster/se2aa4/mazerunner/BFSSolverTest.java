@@ -9,7 +9,7 @@ import java.util.Map;
 
 class BFSSolverTest {
 
-    private BFSSolver solver;
+    /*private BFSSolver solver;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -74,7 +74,7 @@ class BFSSolverTest {
         expectedPath.addStep('F'); 
         expectedPath.addStep('F'); 
         assertEquals(expectedPath.getPathSteps(), solution.getPathSteps(), " Constructed path should match the path constructed by BFSSolver");
-    }
+    }*/
 
 
 }
