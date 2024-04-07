@@ -8,11 +8,11 @@ import java.util.Queue;
 
 public class BFSSolver implements MazeSolver {
 
-    private GraphBuilder graphBuilder = new GraphBuilder();
+    
 
     @Override
     public Path solve(Maze maze) {
-        
+        GraphBuilder graphBuilder = new GraphBuilder();
         graphBuilder.buildGraph(maze);
         Node startNode = graphBuilder.getStartNode();
         Node endNode = graphBuilder.getEndNode();
@@ -27,7 +27,7 @@ public class BFSSolver implements MazeSolver {
             Node current = queue.poll();
 
             if (current.equals(endNode)) {
-                return nodeToPath(shortestPath);
+                return nodeToPath(shortestPath, endNode);
             }
 
             for (Edge edge : current.getEdges()) {
@@ -41,9 +41,9 @@ public class BFSSolver implements MazeSolver {
         return new Path();
     }
 
-    private Path nodeToPath(Map<Node, Node> shortestPathInput) {
+    public Path nodeToPath(Map<Node, Node> shortestPathInput, Node endN) {
         ArrayList<Node> shortestPath = new ArrayList<>();
-        Node endNode = graphBuilder.getEndNode();
+        Node endNode = endN;
         while (endNode != null) {
             shortestPath.add(0, endNode);
             endNode = shortestPathInput.get(endNode);
@@ -65,6 +65,10 @@ public class BFSSolver implements MazeSolver {
         }
 
         return path;
+    }
+
+    public void accept(MazeSolverVisitor visitor) {
+        visitor.visit(this);
     }
     
 }
