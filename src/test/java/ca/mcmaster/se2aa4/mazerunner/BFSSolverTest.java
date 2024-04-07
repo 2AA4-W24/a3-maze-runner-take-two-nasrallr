@@ -3,29 +3,21 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.lang.reflect.Method;
-import java.util.Queue;
+import java.util.HashMap;
+import java.util.Map;
+
 
 class BFSSolverTest {
-/* 
+
     private BFSSolver solver;
-    private Method enqueueMethod;
-    private Method updateNodeMethod;
-    private Method positionIsValidMethod;
 
     @BeforeEach
     void setUp() throws Exception {
         solver = new BFSSolver();
-        enqueueMethod = BFSSolver.class.getDeclaredMethod("enqueue", State.class, Character[].class);
-        enqueueMethod.setAccessible(true);
-        updateNodeMethod = BFSSolver.class.getDeclaredMethod("updateNode", State.class, Path.class);
-        updateNodeMethod.setAccessible(true);
-        positionIsValidMethod = BFSSolver.class.getDeclaredMethod("positionIsValid", Position.class);
-        positionIsValidMethod.setAccessible(true);
     }
 
     @Test
-    void testSolveSmallMaze() {
+    void solveSmallMaze() {
         try {
             Maze maze = new Maze("./examples/small.maz.txt");
             BFSSolver solver = new BFSSolver();
@@ -41,7 +33,7 @@ class BFSSolverTest {
     }
 
     @Test
-    void testSolveGiantMaze() {
+    void solveGiantMaze() {
         try {
             Maze maze = new Maze("./examples/giant.maz.txt");
             BFSSolver solver = new BFSSolver();
@@ -57,43 +49,32 @@ class BFSSolverTest {
     }
 
     @Test
-    void testUpdateNode() throws Exception {
-        Maze maze = new Maze("./examples/straight.maz.txt");
-        solver.solve(maze); 
-        Position pos = maze.getStart();
+    void nodeToPath() {
+        Node startNode = new Node(new Position(1, 2), Direction.RIGHT);
+        Node node1 = new Node(new Position(2, 2), Direction.RIGHT);
+        Node node2 = new Node(new Position(3, 2), Direction.RIGHT);
+        Node endNode = new Node(new Position(4, 2), Direction.RIGHT);
 
-        State currentNode = new State(pos, Direction.RIGHT, new Path());
-        Path addedPath = new Path("FFFF");
-        State updatedNode = (State) updateNodeMethod.invoke(solver, currentNode, addedPath);
-        assertNotNull(updatedNode);
-        assertEquals(new Position(pos.x() + 4, pos.y()), updatedNode.position);
+        startNode.addEdge(node1, new Path("F"));
+        node1.addEdge(node2, new Path("F"));
+        node2.addEdge(endNode, new Path("F"));
+
+    
+        Map<Node, Node> shortestPath = new HashMap<>();
+        shortestPath.put(startNode, null); 
+        shortestPath.put(node1, startNode);
+        shortestPath.put(node2, node1);
+        shortestPath.put(endNode, node2);
+
+        
+        Path solution = solver.nodeToPath(shortestPath, endNode);
+
+        Path expectedPath = new Path();
+        expectedPath.addStep('F'); 
+        expectedPath.addStep('F'); 
+        expectedPath.addStep('F'); 
+        assertEquals(expectedPath.getPathSteps(), solution.getPathSteps(), " Constructed path should match the path constructed by BFSSolver");
     }
 
-    @Test
-    void testEnqueue() throws Exception {
-        Maze maze = new Maze("./examples/small.maz.txt");
-        solver.solve(maze); 
 
-        State currentNode = new State(maze.getStart(), Direction.RIGHT, new Path());
-        enqueueMethod.invoke(solver, currentNode, new Character[]{'F'});
-
-        assertEquals(0, solver.getQueue().size());
-}
-
-
-    @Test
-    void testPositionIsValid() throws Exception {
-        Maze maze = new Maze("./examples/straight.maz.txt");
-        solver.solve(maze); 
-
-        Position startPos = maze.getStart();
-        Position upPosition = new Position(startPos.x(), startPos.y() + 1);
-        Position forwardPosition = new Position(startPos.x() + 1, startPos.y());
-
-        boolean isUpPositionValid = (boolean) positionIsValidMethod.invoke(solver, upPosition);
-        boolean isForwardPositionValid = (boolean) positionIsValidMethod.invoke(solver, forwardPosition);
-
-        assertFalse(isUpPositionValid);
-        assertTrue(isForwardPositionValid);
-    }*/
 }

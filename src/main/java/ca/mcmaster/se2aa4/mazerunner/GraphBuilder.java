@@ -80,4 +80,8 @@ public class GraphBuilder {
         return endNode;
     }
 
+    public ArrayList<Node> getAdjacencyList() {
+        return adjacencyList;
+    }
+
 }

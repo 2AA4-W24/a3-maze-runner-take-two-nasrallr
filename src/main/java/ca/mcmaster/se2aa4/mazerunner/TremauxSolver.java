@@ -183,4 +183,9 @@ public class TremauxSolver implements MazeSolver {
     private boolean isInBounds(Position position, int sizeX, int sizeY) {
         return position.x() >= 0 && position.x() < sizeX && position.y() >= 0 && position.y() < sizeY;
     }
+
+    @Override
+    public void accept(MazeSolverVisitor visitor) {
+        visitor.visit(this);
+    }
 }

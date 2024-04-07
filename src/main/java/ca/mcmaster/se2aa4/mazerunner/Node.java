@@ -13,8 +13,8 @@ public class Node{
         this.edges = new ArrayList<Edge>();
     }
 
-    public void addEdge(Node endVertex, Path path) {
-        this.edges.add(new Edge(this, endVertex, path));
+    public void addEdge(Node endNode, Path path) {
+        this.edges.add(new Edge(this, endNode, path));
     }
 
     public Position getPosition(){

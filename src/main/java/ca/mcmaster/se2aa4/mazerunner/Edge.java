@@ -6,7 +6,7 @@ public class Edge{
     private Path path;
 
     public Edge(Node startNode, Node endNode, Path path) {
-        this.startNode = endNode;
+        this.startNode = startNode;
         this.endNode = endNode;
         this.path = path;
     }
