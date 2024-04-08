@@ -180,7 +180,7 @@ In the Maze class, the maze is represented as a two-dimensional list of Boolean 
         #####
 
 is represented as:
-
+```
 List<List<Boolean>> maze = List.of(
     List.of(true, true, true, true, true),
     List.of(true, true, true, true, true),
@@ -188,5 +188,5 @@ List<List<Boolean>> maze = List.of(
     List.of(true, true, true, true, true),
     List.of(true, true, true, true, true)
 );
-
+```
 The cells in the maze can be accessed using their (x, y) coordinates, where x is the column index and y is the row index. For example, to check if the cell at position (0, 0) is a wall, you can call maze.isWall(Position), which will return true for a wall, and false for an open space. The representation of the maze as a list of boolean values allows for one to implement any maze solving algorithms (apart from graph traveral algorithms) to solve the maze. Any maze solver that uses this representation implements the MazeSolver interface, which returns type Path to represent the path computed by a given algorithm. In this program, the tremaux and right hand algorithms use the true and false representation. 
