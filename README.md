@@ -77,7 +77,7 @@ PATH NOT COMPUTED
 
 #### Command line arguments
 
-The delivered program at the end of this assignment should use the following flags:
+The delivered program at the end of the assignment uses the following flags:
 
 - `-i MAZE_FILE`: specifies the filename to be used;
 - `-p PATH_SEQUENCE`: activates the path verification mode to validate that PATH_SEQUENCE is correct for the maze
@@ -130,7 +130,7 @@ The program reacts to a new command flag, -baseline XXX , used to specify XXX as
 - Speedup and times must be printed with two significative digits.
 
 Example:
-Assume right-hand gives you a path containing 113 instructions as a baseline, and Tremeaux a path with 37 instructions as the optimized method. 𝑆𝑝𝑒𝑒𝑑𝑢𝑝 = |baseline|/|method| = 3.05
+Assume right-hand gives you a path containing 113 instructions as a baseline, and Tremeaux a path with 37 instructions as the optimized method. 𝑆𝑝𝑒𝑒𝑑𝑢𝑝 = |path of baseline|/|path of method| = 3.05
 So overall, using Tremeaux allows one to escape the maze three times faster in this case.
 
 
@@ -147,14 +147,13 @@ BFS algorithm allows one to escape the maze 1.00 times faster than the tremaux a
 [INFO ] Main End of MazeRunner
 mosser@azrael A1-Template %
 ```
-
-Maze Representations:
+#### Maze Representations
 
 The maze is represented in two ways throughout the program:
 - True and false representation
 - Graph representation
 
-1) Graph Representation
+1) Graph Representation:
 For graph traversing algorithms that find the shortest path (graph traversing algorithms implement the GraphTraverser interface), the maze is represented as a graph where each cell in the maze is a node, and the edges between nodes represent possible paths between the cells. The graph representation allows for the to application of numerous graph traversal algorithms to find a path from the entry point to the exit point of the maze. In the program the BFS algorithm is implemented to find the shortest path from entry to exit. The graph is built by iterating through the maze and creating nodes for each cell. Edges are then added between adjacent nodes based on the possible moves in the maze (i.e., where there is no wall between two cells). This graph building process creates a graph that represents the structure of the maze.
 
 Nodes: Each node in the graph corresponds to a cell in the maze. A node has consists of the following attributes:
@@ -171,7 +170,7 @@ Path Finding
 Once the graph is built, graph traversal algorithms can be applied to find a path from the entry node to the exit node. The algorithms explore the graph, starting from the entry node, and follow the edges to navigate through the maze. Any graph traversal algorithm impkements the GraphTraverser algorithm, which requires the path to be returned as Map<Node, Node>, the path is then reconstructed based on the sequence of nodes visited by the algorithm to represent the shortest path as type Path. Overall the graph representation of the maze allows us to use a variety of graph traversal algorithms, such as Breadth-First Search (BFS), to find a path that solves the maze.
 
 2) True and False Representations
-In the Maze class, the maze is represented as a two-dimensional list of Boolean values, where each element corresponds to a cell in the maze. If a given value in the two-dimensional list of Boolean values is false, that means the cell is an open space (i.e ' '), if a given value is true, that means that the cell is a wall (i.e '#'). Example:
+In the Maze class, the maze is represented as a two-dimensional list of Boolean values, where each element corresponds to a cell in the maze. If a given value in the two-dimensional list of Boolean values is false, that means the cell is an open space (i.e ' '), if a given value is true, that means that the cell is a wall (i.e '#'). For example:
 
         #####
         #####
