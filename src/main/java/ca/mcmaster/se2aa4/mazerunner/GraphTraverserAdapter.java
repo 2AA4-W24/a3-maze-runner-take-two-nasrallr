@@ -1,7 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class GraphTraverserAdapter implements MazeSolver{
@@ -14,7 +13,7 @@ public class GraphTraverserAdapter implements MazeSolver{
     @Override   
     public Path solve(Maze maze) {
         
-        Map<Node, Node> shortestPath = new HashMap<>();
+        Map<Node, Node> shortestPath;
 
         shortestPath = graphTraverser.traverse(maze);
 

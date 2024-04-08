@@ -33,7 +33,7 @@ public class Main {
                 System.out.println(path.getFactorizedForm());
                 String baseline = cmd.getOptionValue("baseline", "tremaux");
                 Path baselinePath = solveMaze(baseline, maze);
-                String speedUp = suc.calculateSpeedUp(maze, path, baselinePath);
+                String speedUp = suc.calculateSpeedUp(path, baselinePath);
                 System.out.println(method + " algorithm allows one to escape the maze " + speedUp + " times faster than the " + baseline + " algorithm");
             }
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class Main {
      */
     private static Path solveMaze(String method, Maze maze) throws Exception {
         MazeSolver solver = null;
-        MazeSolverVisitor visitor = new MazeSolverConcreteVisitor(maze);
+        MazeSolverVisitor visitor = new MazeSolverExecutionTimeVisitor(maze);
         switch (method) {
             case "righthand" -> {
                 logger.debug("RightHand algorithm chosen.");

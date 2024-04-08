@@ -52,8 +52,13 @@ public class GraphBuilder {
                 case 'L':
                     dir = dir.turnLeft();
                     break;
+                default:
+                    dir = null;
+                    position = null;
+                    break;
             }
         }
+        
     
         Node newNode = new Node(position, dir);
     

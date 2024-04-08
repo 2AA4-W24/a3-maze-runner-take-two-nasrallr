@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class GraphBuilderTest {
 
-    /*private GraphBuilder graphBuilder;
+    private GraphBuilder graphBuilder;
     private Maze maze;
 
     @BeforeEach
@@ -48,5 +48,5 @@ class GraphBuilderTest {
         }
 
         assertEquals(0, endNode.getEdges().size(), "End node shouldn't have any edges");
-    }*/
+    }
 }

@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class SpeedUpCalculator {
     
-    public String calculateSpeedUp(Maze maze, Path method, Path baseline) {
+    public String calculateSpeedUp(Path method, Path baseline) {
         
         int methodPathLength = calculateMoves(method);
         int baselinePathLength = calculateMoves(baseline);

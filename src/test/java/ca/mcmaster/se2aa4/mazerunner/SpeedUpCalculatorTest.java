@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SpeedUpCalculatorTest {
 
-    //unchanged
-
     @Test
     void calculateSpeedUp() {
         SpeedUpCalculator calculator = new SpeedUpCalculator();
@@ -20,7 +18,7 @@ class SpeedUpCalculatorTest {
         methodPath.addStep('F');
         methodPath.addStep('F');
 
-        String speedUp = calculator.calculateSpeedUp(null, methodPath, baselinePath);
+        String speedUp = calculator.calculateSpeedUp(methodPath, baselinePath);
 
         assertEquals("1.50", speedUp, "Speed up should equal 1.50");
     }
