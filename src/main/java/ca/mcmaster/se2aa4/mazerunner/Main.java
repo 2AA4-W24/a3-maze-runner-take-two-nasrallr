@@ -17,7 +17,6 @@ public class Main {
             cmd = parser.parse(getParserOptions(), args);
             String filePath = cmd.getOptionValue('i');
             Maze maze = new Maze(filePath);
-            System.out.println("Time spent loading the maze from the file: " + maze.executionTime() + " milliseconds" );
             if (cmd.getOptionValue("p") != null) {
                 logger.info("Validating path");
                 Path path = new Path(cmd.getOptionValue("p"));
@@ -27,14 +26,18 @@ public class Main {
                     System.out.println("incorrect path");
                 }
             } else {
-                SpeedUpCalculator suc = new SpeedUpCalculator();
                 String method = cmd.getOptionValue("method", "BFS");
-                Path path = solveMaze(method, maze);
+                Path path = solveMaze(method, maze, cmd);
                 System.out.println(path.getFactorizedForm());
-                String baseline = cmd.getOptionValue("baseline", "tremaux");
-                Path baselinePath = solveMaze(baseline, maze);
-                String speedUp = suc.calculateSpeedUp(path, baselinePath);
-                System.out.println(method + " algorithm allows one to escape the maze " + speedUp + " times faster than the " + baseline + " algorithm");
+                
+                if (cmd.hasOption("baseline")) {
+                    System.out.println("Time spent loading the maze from the file: " + maze.executionTime() + " milliseconds" );
+                    String baseline = cmd.getOptionValue("baseline", "tremaux");
+                    Path baselinePath = solveMaze(baseline, maze, cmd);
+                    SpeedUpCalculator suc = new SpeedUpCalculator();
+                    String speedUp = suc.calculateSpeedUp(path, baselinePath);
+                    System.out.println(method + " algorithm allows one to escape the maze " + speedUp + " times faster than the " + baseline + " algorithm");
+                }
             }
         } catch (Exception e) {
             System.err.println("MazeSolver failed.  Reason: " + e.getMessage());
@@ -53,7 +56,7 @@ public class Main {
      * @return Maze solution path
      * @throws Exception If provided method does not exist
      */
-    private static Path solveMaze(String method, Maze maze) throws Exception {
+    private static Path solveMaze(String method, Maze maze, CommandLine cmd) throws Exception {
         MazeSolver solver = null;
         MazeSolverVisitor visitor = new MazeSolverExecutionTimeVisitor(maze);
         switch (method) {
@@ -76,7 +79,10 @@ public class Main {
     
         logger.info("Computing path"); 
         Path solution = solver.solve(maze);
-        solver.accept(visitor);
+        if (cmd.hasOption("baseline")) {
+            solver.accept(visitor);
+        }
+        
 
         return solution;
     }
