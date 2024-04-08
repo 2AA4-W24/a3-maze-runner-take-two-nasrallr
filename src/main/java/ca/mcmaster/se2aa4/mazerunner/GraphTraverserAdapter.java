@@ -15,7 +15,10 @@ public class GraphTraverserAdapter implements MazeSolver{
         
         Map<Node, Node> shortestPath;
 
-        shortestPath = graphTraverser.traverse(maze);
+        GraphBuilder graphBuilder = new GraphBuilder();
+        graphBuilder.buildGraph(maze);
+
+        shortestPath = graphTraverser.traverse(graphBuilder);
 
         return nodeToPath(shortestPath, graphTraverser.getEndNode());
     }

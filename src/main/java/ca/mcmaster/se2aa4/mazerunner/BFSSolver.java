@@ -10,9 +10,9 @@ public class BFSSolver implements GraphTraverser {
     private Node startN;
 
     @Override
-    public Map<Node, Node> traverse(Maze maze) {
-        GraphBuilder graphBuilder = new GraphBuilder();
-        graphBuilder.buildGraph(maze);
+    public Map<Node, Node> traverse(GraphBuilder graphBuilder) {
+        //GraphBuilder graphBuilder = new GraphBuilder();
+        //graphBuilder.buildGraph(maze);
         Node startNode = graphBuilder.getStartNode();
         Node endNode = graphBuilder.getEndNode();
         startN = startNode;

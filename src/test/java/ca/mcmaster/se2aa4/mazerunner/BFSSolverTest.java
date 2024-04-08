@@ -24,7 +24,9 @@ class BFSSolverTest {
             Maze maze = new Maze("./examples/small.maz.txt");
             BFSSolver solver = new BFSSolver();
             Map<Node, Node> shortestPath = new HashMap<>();
-            shortestPath = solver.traverse(maze);
+            GraphBuilder graphBuilder = new GraphBuilder();
+            graphBuilder.buildGraph(maze);
+            shortestPath = solver.traverse(graphBuilder);
             Path solution = adapter.nodeToPath(shortestPath, solver.getEndNode());
             assertNotNull(solution);
             assertFalse(solution.getPathSteps().isEmpty());
