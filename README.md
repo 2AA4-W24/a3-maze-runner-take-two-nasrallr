@@ -166,7 +166,7 @@ Edges: Each edge in the graph represents a possible move from one cell to anothe
 - EndNode: The node where the edge ends.
 - Path: The sequence of instructions consisting of 'F', 'FR', or 'FL' required to move from the start node to the end node.
 
-Path Finding
+Path Finding:
 Once the graph is built, graph traversal algorithms can be applied to find a path from the entry node to the exit node. The algorithms explore the graph, starting from the entry node, and follow the edges to navigate through the maze. Any graph traversal algorithm impkements the GraphTraverser algorithm, which requires the path to be returned as Map<Node, Node>, the path is then reconstructed based on the sequence of nodes visited by the algorithm to represent the shortest path as type Path. Overall the graph representation of the maze allows us to use a variety of graph traversal algorithms, such as Breadth-First Search (BFS), to find a path that solves the maze.
 
 2) True and False Representations
