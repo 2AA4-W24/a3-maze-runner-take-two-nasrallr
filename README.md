@@ -1,4 +1,4 @@
-# Assignment A1 - Maze Runner
+# Assignment A3 - Maze Runner, Take Two
 
 * **Student**: [Rayan Nasrallah](nasrallr@mcmaster.ca)
 * **Authors**: Rayan Nasrallah, Alexandre Lachance
