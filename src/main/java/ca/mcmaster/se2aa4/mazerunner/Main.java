@@ -58,7 +58,7 @@ public class Main {
      */
     private static Path solveMaze(String method, Maze maze, CommandLine cmd) throws Exception {
         MazeSolver solver = null;
-        MazeSolverVisitor visitor = new MazeSolverExecutionTimeVisitor(maze);
+        MazeSolverVisitor visitor = new MazeSolverPerformanceVisitor(maze);
         switch (method) {
             case "righthand" -> {
                 logger.debug("RightHand algorithm chosen.");
