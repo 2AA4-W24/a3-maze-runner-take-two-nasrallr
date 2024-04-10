@@ -44,7 +44,7 @@ public class MazeSolverPerformanceVisitor implements MazeSolverVisitor{
         if ( executionTime <= 0 ) {
             executionTime = 0.00;
         }
-
+        System.out.println("It takes " + String.format("%.2f", timeToBuildGraph) + " milliseconds to build the graph");
         System.out.println("Graph traversal algorithm takes " + String.format("%.2f", executionTime) + " milliseconds to solve the maze");
     }
 }
